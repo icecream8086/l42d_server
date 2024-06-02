@@ -21,6 +21,10 @@ RUN echo -e 'force_install_dir ./l4d2server\nlogin anonymous\napp_update 222860 
     ./steamcmd.sh +runscript steamcmd_script.txt
 # Create server.cfg
 RUN echo -e 'rcon_password ""\nsv_password ""\nsv_allow_lobby_connect_only 0\nsv_tags hidden\nsv_gametypes "coop,versus,survival"\nmp_gamemode coop\nz_difficulty Normal\nsv_region 4\nsv_lan 0\nsv_consistency 0\nsv_cheats 0\nmotd_enabled 1' > ./l4d2server/left4dead2/cfg/server.cfg
+
+# other configuration
+RUN mkdir -p /home/steam/l4d2server/left4dead2/addons/sourcemod/configs/
+
 # Create start.sh and give it execute permissions
 RUN echo -e '#!/bin/bash\n/home/steam/l4d2server/srcds_run -game left4dead2 -insecure +map c1m2_streets -condebug +exec server.cfg -nomaster' > ./l4d2server/start.sh && \
     chmod +x ./l4d2server/start.sh
